@@ -1,32 +1,24 @@
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        //valores inventario
-        int inventarioInicial = 150;
-        int ordenOptima = 200;
-        int reordenOptimo = 100;
-
-        Demanda demanda = new Demanda();
-        TiempoEntrega entrega = new TiempoEntrega();
-        Inventario inventario = new Inventario(inventarioInicial, ordenOptima, reordenOptimo);
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el número de iteraciones: ");
+        int iteraciones = scanner.nextInt();
+        scanner.nextLine(); // Consumir el salto de línea después de nextInt()
+        double[] dataCostos = new double[iteraciones];
+        int[] dataQ = new int[iteraciones];
+        int[] dataR = new int[iteraciones];
         Tabla tabla = new Tabla();
-        //datos
-        double[] dataDemanda, dataTimpoEntrega, dataInventario; 
-        String[] dataEntrega;
-        // Generar una muestra de demanda
-        int iteraciones = 12;
-        dataDemanda = new double[iteraciones];
-        dataTimpoEntrega = new double[iteraciones];
-        for (int i = 0; i < iteraciones; i++) {
-            dataDemanda[i] =  demanda.generarDemanda(i);//usar i solo para 12 meses
-            dataTimpoEntrega[i] =  entrega.generarTiempoEntrega();
+        for(int i = 0; i< iteraciones; i++){
+            Montecarlo algMontecarlo = new Montecarlo();
+            algMontecarlo.algoritmoMontecarlo();
+            if(i<3)
+                algMontecarlo.generaTablaMensual();
+            dataCostos[i] = algMontecarlo.generaCostoAnual();
+            dataQ[i] = algMontecarlo.getQ();
+            dataR[i] = algMontecarlo.getR();
         }
-        inventario.simularInventario(demanda, entrega);
-        dataDemanda = inventario.getDataDemanda();
-        dataInventario = inventario.getInventario();
-        dataEntrega = inventario.getDataEntrega();
-        tabla.crearTabla(dataInventario, dataDemanda, dataEntrega);
-        //demanda.generaHistograma("Histograma de la demanda", dataDemanda);
-        //entrega.generaHistograma("Histograma de tiempo de entrega", dataTimpoEntrega);
+        tabla.crearTabla(dataCostos, dataQ, dataR);
     }
 }
