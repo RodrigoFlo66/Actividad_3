@@ -24,4 +24,5 @@ public class TiempoEntrega {
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
+    
 }

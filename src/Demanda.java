@@ -47,4 +47,17 @@ public class Demanda {
             System.out.println(data[i]);
         }
     }
+    public static void main(String[] args) {
+        Demanda demanda =  new Demanda();
+        TiempoEntrega entrega = new TiempoEntrega();
+        int iteraciones = 10000;
+        double[] dataDemanda = new double[iteraciones];
+        double[] dataEntrega = new double[iteraciones];
+        for(int i=0; i<iteraciones; i++){
+            dataDemanda[i] = demanda.generarDemanda();
+            dataEntrega[i] = entrega.generarTiempoEntrega();
+        }
+        demanda.generaHistograma("Histograma de la demanda", dataDemanda);
+        entrega.generaHistograma("Histograma del tiempo de entrega", dataEntrega);
+    }
 }

@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Inventario {
     private static final int MESES_EN_UN_ANIO = 12;
-    private double[] inventario, dataDemanda, dataCosto;
+    public double[] inventario, dataDemanda, dataCosto;
     private String[] dataEntrega;
     private int ordenOptima, reordenOptimo;
     boolean seOrdeno = false;

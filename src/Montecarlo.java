@@ -1,3 +1,5 @@
+import javax.swing.JFrame;
+
 public class Montecarlo{
 static final int iteraciones = 12;
              double[] dataDemanda = new double[iteraciones];
@@ -47,4 +49,15 @@ static final int iteraciones = 12;
     public int getR(){
         return r;
     }
+    public static void main(String[] args) {
+    Montecarlo mon = new Montecarlo();
+    mon.generaSimulacion(150, 175, 155);
+    PanelGrafica panel = new PanelGrafica(mon.dataInventario);
+    JFrame frame = new JFrame("Gráfico de Inventario");
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.getContentPane().add(panel);
+    frame.pack();
+    frame.setVisible(true);
+}
+
 }
